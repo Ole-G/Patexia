@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Agent Marketing Plan - Gantt Chart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Gantt chart */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gantt-grid {
+            display: grid;
+            /* 1 column for task names, 28 for days */
+            grid-template-columns: minmax(350px, 1fr) repeat(28, minmax(45px, 1fr));
+            border: 1px solid #374151; /* gray-700 */
+        }
+        .gantt-header, .gantt-day-header, .gantt-task-name, .gantt-cell, .gantt-week-header, .gantt-full-row {
+            border-bottom: 1px solid #374151; /* gray-700 */
+            border-right: 1px solid #374151; /* gray-700 */
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        .gantt-header {
+            position: sticky;
+            top: 0;
+            background-color: #1f2937; /* gray-800 */
+            font-weight: 600;
+            z-index: 20;
+        }
+        .gantt-task-name {
+            position: sticky;
+            left: 0;
+            background-color: #111827; /* gray-900 */
+            font-weight: 500;
+            z-index: 10;
+        }
+        .gantt-week-header {
+            position: sticky;
+            top: 0;
+            background-color: #374151; /* gray-700 */
+            font-weight: 600;
+            text-align: center;
+            z-index: 20;
+        }
+        .gantt-day-header {
+            position: sticky;
+            top: 50px; /* Height of the week header */
+            background-color: #1f2937; /* gray-800 */
+            text-align: center;
+            font-size: 0.75rem;
+            line-height: 1rem;
+            z-index: 20;
+        }
+        .gantt-task-name {
+            z-index: 10;
+        }
+        /* Ensure sticky task name has a solid background to hide scrolling content */
+        .gantt-task-name.sticky {
+            background-color: #111827; /* gray-900 */
+        }
+        .gantt-full-row {
+            grid-column: 1 / -1; /* Span all columns */
+            font-weight: 700;
+            background-color: #1f2937; /* gray-800 */
+        }
+        .gantt-bar-container {
+            grid-column: 2 / -1; /* Span all day columns */
+            display: grid;
+            grid-template-columns: repeat(28, 1fr);
+            padding: 0;
+            border-right: 0;
+        }
+        .gantt-bar {
+            grid-row: 1;
+            background-color: #2563eb; /* blue-600 */
+            border-radius: 0.25rem;
+            margin: 0.25rem 0.125rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            line-height: 1rem;
+            color: white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+        .gantt-bar:hover {
+            opacity: 0.8;
+        }
+        .weekend {
+            background-color: #1f2937 !important; /* gray-800 */
+            opacity: 0.6;
+        }
+        .gantt-cell.weekend {
+            background-color: #1f2937; /* gray-800 */
+            opacity: 0.3;
+        }
+        .gantt-bar.milestone {
+            background-color: #db2777; /* pink-600 */
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: -0.5rem; /* Center adjustment */
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 p-4 md:p-8">
+
+    <div class="max-w-full mx-auto">
+        <h1 class="text-3xl font-bold mb-2">IP Agent Marketing Plan</h1>
+        <h2 class="text-xl text-gray-400 mb-6">Gantt Chart (November 10 - December 7, 2025)</h2>
+
+        <!-- Gantt Chart Container -->
+        <div class="overflow-x-auto border border-gray-700 rounded-lg shadow-lg" style="max-height: 80vh;">
+            <div class="gantt-grid">
+
+                <!-- Row 1: Week Headers -->
+                <div class="gantt-header sticky left-0" style="top: 0; z-index: 30;">Task</div>
+                <div class="gantt-week-header" style="grid-column: 2 / 9;">Week 1 (Nov 10-16)</div>
+                <div class="gantt-week-header" style="grid-column: 9 / 16;">Week 2 (Nov 17-23)</div>
+                <div class="gantt-week-header" style="grid-column: 16 / 23;">Week 3 (Nov 24-30)</div>
+                <div class="gantt-week-header" style="grid-column: 23 / 30;">Week 4 (Dec 1-7)</div>
+
+                <!-- Row 2: Day Headers -->
+                <div class="gantt-day-header sticky left-0" style="top: 50px; z-index: 30;"></div>
+                <!-- Week 1 Days -->
+                <div class="gantt-day-header">M<br>10</div>
+                <div class="gantt-day-header">T<br>11</div>
+                <div class="gantt-day-header">W<br>12</div>
+                <div class="gantt-day-header">T<br>13</div>
+                <div class="gantt-day-header">F<br>14</div>
+                <div class="gantt-day-header weekend">S<br>15</div>
+                <div class="gantt-day-header weekend">S<br>16</div>
+                <!-- Week 2 Days -->
+                <div class="gantt-day-header">M<br>17</div>
+                <div class="gantt-day-header">T<br>18</div>
+                <div class="gantt-day-header">W<br>19</div>
+                <div class="gantt-day-header">T<br>20</div>
+                <div class="gantt-day-header">F<br>21</div>
+                <div class="gantt-day-header weekend">S<br>22</div>
+                <div class="gantt-day-header weekend">S<br>23</div>
+                <!-- Week 3 Days -->
+                <div class="gantt-day-header">M<br>24</div>
+                <div class="gantt-day-header">T<br>25</div>
+                <div class="gantt-day-header">W<br>26</div>
+                <div class="gantt-day-header">T<br>27</div>
+                <div class="gantt-day-header">F<br>28</div>
+                <div class="gantt-day-header weekend">S<br>29</div>
+                <div class="gantt-day-header weekend">S<br>30</div>
+                <!-- Week 4 Days -->
+                <div class="gantt-day-header">M<br>1</div>
+                <div class="gantt-day-header">T<br>2</div>
+                <div class="gantt-day-header">W<br>3</div>
+                <div class="gantt-day-header">T<br>4</div>
+                <div class="gantt-day-header">F<br>5</div>
+                <div class="gantt-day-header weekend">S<br>6</div>
+                <div class="gantt-day-header weekend">S<br>7</div>
+
+                <!-- ===== WEEK 1: FOUNDATION ===== -->
+                <div class="gantt-full-row bg-blue-900 text-blue-100">WEEK 1: FOUNDATION (Nov 10-16)</div>
+
+                <!-- 1.1 CRITICAL SYSTEMS SETUP -->
+                <div class="gantt-task-name sticky pl-4">1.1 Critical Systems Setup</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-600" style="grid-column: 1 / 4;" title="Task: 1.1 Critical Systems Setup (Nov 10-12)">1.1</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Brevo Migration (URGENT)</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-500" style="grid-column: 1 / 4;" title="Task: Brevo Migration (Nov 10-12)">Brevo Migration</div>
+                </div>
+
+                <div class="gantt-task-name sticky pl-8">Analytics Dashboard Setup</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-500" style="grid-column: 1 / 3;" title="Task: Analytics Dashboard Setup (Nov 10-11)">Analytics Dashboard</div>
+                </div>
+
+                <!-- 1.2 MESSAGING OVERHAUL -->
+                <div class="gantt-task-name sticky pl-4">1.2 Messaging Overhaul</div>
+                <div class="gantt-bar-container">
+                     <div class="gantt-bar bg-blue-600" style="grid-column: 2 / 5;" title="Task: 1.2 Messaging Overhaul (Nov 11-13)">1.2</div>
+                </div>
+
+                <div class="gantt-task-name sticky pl-8">Update Homepage</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-500" style="grid-column: 2 / 3;" title="Task: Update Homepage (Nov 11)">Update Homepage</div>
+                </div>
+
+                <div class="gantt-task-name sticky pl-8">Create Use Case Guide</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-500" style="grid-column: 3 / 4;" title="Task: Create Use Case Guide (Nov 12)">Create Use Case Guide</div>
+                </div>
+
+                <div class="gantt-task-name sticky pl-8">Refresh Email Templates</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-500" style="grid-column: 4 / 5;" title="Task: Refresh Email Templates (Nov 13)">Refresh Email Templates</div>
+                </div>
+
+                <!-- 1.3 ONBOARDING FRICTION REMOVAL -->
+                <div class="gantt-task-name sticky pl-4">1.3 Onboarding Friction Removal</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-600" style="grid-column: 3 / 6;" title="Task: 1.3 Onboarding Friction Removal (Nov 12-14)">1.3</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Coordinate Dev (Welcome Modal)</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-500" style="grid-column: 3 / 5;" title="Task: Coordinate Dev (Nov 12-13)">Coordinate Dev</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Set up Brevo Automation</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-blue-500" style="grid-column: 4 / 6;" title="Task: Set up Brevo Automation (Nov 13-14)">Set up Brevo Automation</div>
+                </div>
+
+                <!-- ===== WEEK 2: ACTIVATION ===== -->
+                <div class="gantt-full-row bg-green-900 text-green-100">WEEK 2: ACTIVATION (Nov 17-23)</div>
+
+                <!-- 2.1 EMAIL CAMPAIGN #1 -->
+                <div class="gantt-task-name sticky pl-4">2.1 Email Campaign #1: Activate</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-600" style="grid-column: 9 / 10;" title="Task: Send Campaign #1 (Nov 18)">Send #1</div>
+                    <div class="gantt-bar bg-green-600" style="grid-column: 12 / 13;" title="Task: Follow-Up #1 (Nov 21)">Follow-Up #1</div>
+                </div>
+
+                <!-- 2.2 EMAIL CAMPAIGN #2 -->
+                <div class="gantt-task-name sticky pl-4">2.2 Email Campaign #2: Convert</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-600" style="grid-column: 10 / 11;" title="Task: Send Campaign #2 (Nov 19)">Send #2: Convert</div>
+                </div>
+
+                <!-- 2.3 EMAIL CAMPAIGN #3 -->
+                <div class="gantt-task-name sticky pl-4">2.3 Email Campaign #3: Demo Offer</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-600" style="grid-column: 11 / 12;" title="Task: Send Campaign #3 (Nov 20)">Send #3: Demo</div>
+                </div>
+
+                <!-- 2.4 SOCIAL PROOF: G2 -->
+                <div class="gantt-task-name sticky pl-4">2.4 Social Proof: G2 Listing</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-600" style="grid-column: 8 / 12;" title="Task: 2.4 Social Proof: G2 Listing (Nov 17-20)">2.4</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Create G2 Profile</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-500" style="grid-column: 8 / 9;" title="Task: Create G2 Profile (Nov 17)">Create G2 Profile</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Email Power Users (Reviews)</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-500" style="grid-column: 9 / 11;" title="Task: Email Power Users (Nov 18-19)">Email for Reviews</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Submit to G2 Grid</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-500" style="grid-column: 11 / 12;" title="Task: Submit to G2 Grid (Nov 20)">Submit to G2</div>
+                </div>
+
+                <!-- 2.5 SOCIAL PROOF: PH -->
+                <div class="gantt-task-name sticky pl-4">2.5 Social Proof: Product Hunt Prep</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-600" style="grid-column: 11 / 14;" title="Task: 2.5 Product Hunt Prep (Nov 20-22)">2.5</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Create PH Account</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-500" style="grid-column: 11 / 12;" title="Task: Create PH Account (Nov 20)">Create PH Account</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Draft Launch Post</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-500" style="grid-column: 12 / 13;" title="Task: Draft Launch Post (Nov 21)">Draft Launch Post</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Line up Supporters</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-green-500" style="grid-column: 13 / 14;" title="Task: Line up Supporters (Nov 22)">Line up Supporters</div>
+                </div>
+                
+                <!-- ===== WEEK 3: CONTENT & SEO ===== -->
+                <div class="gantt-full-row bg-purple-900 text-purple-100">WEEK 3: CONTENT & SEO (Nov 24-30)</div>
+
+                <!-- 3.1 SEO-DRIVEN BLOG POSTS -->
+                <div class="gantt-task-name sticky pl-4">3.1 SEO-Driven Blog Posts</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-purple-600" style="grid-column: 15 / 20;" title="Task: 3.1 Blog Posts (Nov 24-28)">3.1</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Post 1: vs. DocketNavigator</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-purple-500 milestone" style="grid-column: 15 / 16;" title="Publish Post 1 (Nov 24)">P1</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Post 2: 5 PTAB Queries</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-purple-500 milestone" style="grid-column: 17 / 18;" title="Publish Post 2 (Nov 26)">P2</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Post 3: Pricing Guide</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-purple-500 milestone" style="grid-column: 19 / 20;" title="Publish Post 3 (Nov 28)">P3</div>
+                </div>
+
+                <!-- 3.2 LINKEDIN THOUGHT LEADERSHIP -->
+                <div class="gantt-task-name sticky pl-4">3.2 LinkedIn Leadership</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-purple-600 milestone" style="grid-column: 15 / 16;" title="LinkedIn Post (Nov 24)">LI</div>
+                    <div class="gantt-bar bg-purple-600 milestone" style="grid-column: 17 / 18;" title="LinkedIn Post (Nov 26)">LI</div>
+                    <div class="gantt-bar bg-purple-600 milestone" style="grid-column: 19 / 20;" title="LinkedIn Post (Nov 28)">LI</div>
+                    <div class="gantt-bar bg-purple-600 milestone" style="grid-column: 22 / 23;" title="LinkedIn Post (Dec 1)">LI</div>
+                </div>
+
+                <!-- ===== WEEK 4: SCALE & VIRAL LOOPS ===== -->
+                <div class="gantt-full-row bg-orange-900 text-orange-100">WEEK 4: SCALE & VIRAL LOOPS (Dec 1-7)</div>
+
+                <!-- 4.1 REFERRAL PROGRAM LAUNCH -->
+                <div class="gantt-task-name sticky pl-4">4.1 Referral Program Launch</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-orange-600" style="grid-column: 22 / 25;" title="Task: 4.1 Referral Program Launch (Dec 1-3)">4.1</div>
+                </div>
+
+                <div class="gantt-task-name sticky pl-8">Add "Invite" Button (Dev)</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-orange-500" style="grid-column: 22 / 23;" title="Task: Add 'Invite' Button (Dec 1)">Dev Task</div>
+                </div>
+
+                <div class="gantt-task-name sticky pl-8">Email All Users (Referral)</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-orange-500" style="grid-column: 23 / 24;" title="Task: Email All Users (Dec 2)">Email Blast</div>
+                </div>
+                
+                <!-- 4.2 CASE STUDY CREATION -->
+                <div class="gantt-task-name sticky pl-4">4.2 Case Study Creation</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-orange-600" style="grid-column: 24 / 29;" title="Task: 4.2 Case Study Creation (Dec 3-7)">4.2</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Interview 1 (BD)</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-orange-500 milestone" style="grid-column: 24 / 25;" title="Interview 1 (Dec 3)">I1</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Interview 2 (Case Prep)</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-orange-500 milestone" style="grid-column: 25 / 26;" title="Interview 2 (Dec 4)">I2</div>
+                </div>
+                
+                <div class="gantt-task-name sticky pl-8">Distribution</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-orange-500" style="grid-column: 26 / 29;" title="Task: Distribution (Dec 5-7)">Distribution</div>
+                </div>
+
+                <!-- 4.3 WEEKLY PERFORMANCE REVIEW -->
+                <div class="gantt-task-name sticky pl-4">4.3 Performance Review</div>
+                <div class="gantt-bar-container">
+                    <div class="gantt-bar bg-pink-600" style="grid-column: 23 / 24;" title="Task: Performance Review (Dec 2)">Meeting</div>
+                </div>
+                
+                <!-- ===== DAILY TASKS ===== -->
+                <div class="gantt-full-row bg-gray-700">RECURRING</div>
+                
+                <div class="gantt-task-name sticky pl-4">Daily Tasks</div>
+                <div class="gantt-bar-container">
+                    <!-- Week 1 -->
+                    <div class="gantt-bar bg-red-600" style="grid-column: 1 / 6;" title="Daily Tasks (Nov 10-14)"></div>
+                    <!-- Week 2 -->
+                    <div class="gantt-bar bg-red-600" style="grid-column: 8 / 13;" title="Daily Tasks (Nov 17-21)"></div>
+                    <!-- Week 3 -->
+                    <div class="gantt-bar bg-red-600" style="grid-column: 15 / 20;" title="Daily Tasks (Nov 24-28)"></div>
+                    <!-- Week 4 -->
+                    <div class="gantt-bar bg-red-600" style="grid-column: 22 / 27;" title="Daily Tasks (Dec 1-5)"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
